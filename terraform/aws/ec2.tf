@@ -178,6 +178,7 @@ resource "aws_subnet" "web_subnet2" {
   vpc_id                  = aws_vpc.web_vpc.id
   cidr_block              = "172.16.11.0/24"
   availability_zone       = "${var.region}b"
+  map_public_ip_on_launch = true
 
   tags = merge({
     Name = "${local.resource_prefix.value}-subnet2"
@@ -343,6 +344,19 @@ resource "aws_s3_bucket" "flowbucket" {
     zs-key = "new1"
   })
 }
+
+
+resource "aws_s3_bucket" "flowbucket_log_bucket" {
+  bucket = "flowbucket-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "flowbucket" {
+  bucket = aws_s3_bucket.flowbucket.id
+
+  target_bucket = aws_s3_bucket.flowbucket_log_bucket.id
+  target_prefix = "log/"
+}
+
 
 output "ec2_public_dns" {
   description = "Web Host Public DNS name"
