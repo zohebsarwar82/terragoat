@@ -11,7 +11,9 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "tf_test"
+    Name      = "tf_test"
+    yor_trace = "7e4960d0-954f-4447-af9d-2397ba9f8a4d"
+    zs-key    = "new1"
   }
 }
 
@@ -21,7 +23,9 @@ resource "aws_subnet" "tf_test_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "zs_test_subnet"
+    Name      = "zs_test_subnet"
+    yor_trace = "789c340a-d83a-4f17-91ac-a561eed75403"
+    zs-key    = "new1"
   }
 }
 
@@ -29,7 +33,9 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name = "tf_test_ig"
+    Name      = "tf_test_ig"
+    yor_trace = "a3f2e7ff-6b41-42a3-8275-1c3002875ba2"
+    zs-key    = "new1"
   }
 }
 
@@ -42,7 +48,9 @@ resource "aws_route_table" "r" {
   }
 
   tags = {
-    Name = "aws_route_table"
+    Name      = "aws_route_table"
+    yor_trace = "6bfc0dfc-25a7-49f4-bdf2-5486859c5e57"
+    zs-key    = "new1"
   }
 }
 
@@ -81,6 +89,10 @@ resource "aws_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    yor_trace = "31df4c33-5def-4922-b5c2-453504ccedd3"
+    zs-key    = "new1"
+  }
 }
 
 # Our elb security group to access
@@ -109,6 +121,10 @@ resource "aws_security_group" "elb" {
 
   # ensure the VPC has an Internet gateway or this step will fail
   depends_on = [aws_internet_gateway.gw]
+  tags = {
+    yor_trace = "97581412-75e5-4aac-96d8-032ab378e6dd"
+    zs-key    = "new1"
+  }
 }
 
 resource "aws_elb" "web" {
@@ -141,6 +157,10 @@ resource "aws_elb" "web" {
   idle_timeout                = 400
   connection_draining         = true
   connection_draining_timeout = 400
+  tags = {
+    yor_trace = "3734aef7-2bca-4d64-a03a-c983cac673e4"
+    zs-key    = "new1"
+  }
 }
 
 resource "aws_lb_cookie_stickiness_policy" "default" {
@@ -172,6 +192,8 @@ resource "aws_instance" "web" {
   #Instance tags
 
   tags = {
-    Name = "elb-example"
+    Name      = "elb-example"
+    yor_trace = "acf773bb-1a2c-4207-852a-41552133a1ab"
+    zs-key    = "new1"
   }
 }
