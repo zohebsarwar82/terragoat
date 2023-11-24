@@ -11,7 +11,8 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "tf_test"
+    Name      = "tf_test"
+    yor_trace = "72660399-4c97-4b18-9146-7539eae8d84a"
   }
 }
 
@@ -21,7 +22,8 @@ resource "aws_subnet" "tf_test_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "zs_test_subnet"
+    Name      = "zs_test_subnet"
+    yor_trace = "f1f26136-58e9-4a45-ad6f-b49d7bd21e4d"
   }
 }
 
@@ -29,7 +31,8 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name = "tf_test_ig"
+    Name      = "tf_test_ig"
+    yor_trace = "9ed808d4-b07b-4851-9e1e-709d2181884e"
   }
 }
 
@@ -42,7 +45,8 @@ resource "aws_route_table" "r" {
   }
 
   tags = {
-    Name = "aws_route_table"
+    Name      = "aws_route_table"
+    yor_trace = "bd239f74-951f-4de1-9c4a-40a5c8a159a5"
   }
 }
 
@@ -81,6 +85,9 @@ resource "aws_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    yor_trace = "7dde770d-d79a-47b1-9aa0-cc2b32800659"
+  }
 }
 
 # Our elb security group to access
@@ -109,6 +116,9 @@ resource "aws_security_group" "elb" {
 
   # ensure the VPC has an Internet gateway or this step will fail
   depends_on = [aws_internet_gateway.gw]
+  tags = {
+    yor_trace = "bfb92cbc-0709-4a11-83c4-6e676d13e893"
+  }
 }
 
 resource "aws_elb" "web" {
@@ -141,6 +151,9 @@ resource "aws_elb" "web" {
   idle_timeout                = 400
   connection_draining         = true
   connection_draining_timeout = 400
+  tags = {
+    yor_trace = "71134a4b-1a56-42e5-a36e-201a874094d3"
+  }
 }
 
 resource "aws_lb_cookie_stickiness_policy" "default" {
@@ -172,6 +185,7 @@ resource "aws_instance" "web" {
   #Instance tags
 
   tags = {
-    Name = "elb-example"
+    Name      = "elb-example"
+    yor_trace = "f1c08a0f-901a-4702-8ce0-cff34cba5a03"
   }
 }
