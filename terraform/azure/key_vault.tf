@@ -29,6 +29,10 @@ resource "azurerm_key_vault" "example" {
     yor_trace            = "79afeacc-248a-4015-a4fa-76a6a57f06e2"
     }, {
     name = "zs"
+    }, {
+    owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -55,6 +59,8 @@ resource "azurerm_key_vault_key" "generated" {
     git_repo             = "terragoat"
     yor_trace            = "afbc6e13-63d9-4e6c-8914-d58b7744b5dd"
     name                 = "zs"
+    owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -72,5 +78,7 @@ resource "azurerm_key_vault_secret" "secret" {
     git_repo             = "terragoat"
     yor_trace            = "40517524-f05d-485b-bfbe-3fa0dbee511e"
     name                 = "zs"
+    owner                = ""
+    zs-key               = "new1"
   }
 }
